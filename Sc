@@ -1,0 +1,30 @@
+import requests
+import json
+
+def get_news(source):
+    api_key = "YOUR_API_KEY"  # Replace with your News API key
+    base_url = "https://newsapi.org/v2/top-headlines"
+    params = {
+        "sources": source,
+        "apiKey": api_key
+    }
+    
+    response = requests.get(base_url, params=params)
+    data = response.json()
+    
+    if data["status"] == "ok":
+        articles = data["articles"]
+        for article in articles:
+            print(f"Title: {article['title']}")
+            print(f"Description: {article['description']}")
+            print(f"URL: {article['url']}")
+            print("---------------------")
+    else:
+        print("Error fetching news.")
+
+def main():
+    source = input("Enter a news source: ")
+    get_news(source)
+
+if __name__ == "__main__":
+    main()
